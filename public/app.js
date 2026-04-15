@@ -23,9 +23,26 @@ function showMessage(text, type = 'success') {
   message.className = `message ${type}`;
 }
 
+async function apiFetch(url, options = {}) {
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(data.error || `Erro na requisição: ${response.status}`);
+    }
+
+    return data;
+  } catch (error) {
+    showMessage(error.message || 'Erro de comunicação com o servidor.', 'error');
+    return null;
+  }
+}
+
 async function fetchRanking() {
-  const response = await fetch('/api/ranking');
-  const ranking = await response.json();
+  const ranking = await apiFetch('/api/ranking');
+  if (!ranking) return [];
+
   rankingBody.innerHTML = ranking.map(item => `
     <tr>
       <td>${item.rank}º</td>
@@ -37,12 +54,13 @@ async function fetchRanking() {
 }
 
 async function fetchSales() {
-  const response = await fetch('/api/sales');
-  const sales = await response.json();
+  const sales = await apiFetch('/api/sales');
+  if (!sales) return [];
+
   salesBody.innerHTML = sales.map(sale => {
     const statusClass = sale.status === 'entregue' ? 'status-entregue' : 'status-pendente';
     const statusText = sale.status === 'entregue' ? '✓ Entregue' : '⏳ Pendente';
-    const deliverButton = sale.status === 'pendente' ? `<button type="button" class="action-button deliver-btn" data-id="${sale.id}">Pedido Entregue</button>` : '';
+    const deliverButton = sale.status === 'pendente' ? `<button type="button" class="action-button deliver-btn" data-id="${sale.id}" aria-label="Marcar pedido de ${sale.customerName} como entregue">Pedido Entregue</button>` : '';
 
     return `
       <tr>
@@ -53,8 +71,8 @@ async function fetchSales() {
         <td><span class="status ${statusClass}">${statusText}</span></td>
         <td>
           ${deliverButton}
-          <button type="button" class="action-button edit-btn" data-id="${sale.id}" data-seller="${sale.sellerName}" data-customer="${sale.customerName}" data-address="${sale.customerAddress}" data-qty="${sale.quantity}">Editar</button>
-          <button type="button" class="action-button delete-btn" data-id="${sale.id}">Deletar</button>
+          <button type="button" class="action-button edit-btn" data-id="${sale.id}" data-seller="${sale.sellerName}" data-customer="${sale.customerName}" data-address="${sale.customerAddress}" data-qty="${sale.quantity}" aria-label="Editar venda de ${sale.sellerName} para ${sale.customerName}">Editar</button>
+          <button type="button" class="action-button delete-btn" data-id="${sale.id}" aria-label="Deletar venda de ${sale.sellerName} para ${sale.customerName}">Deletar</button>
         </td>
       </tr>
     `;
@@ -75,6 +93,7 @@ function updateSummary(sales, ranking) {
 
 async function loadData() {
   const [sales, ranking] = await Promise.all([fetchSales(), fetchRanking()]);
+  if (!sales || !ranking) return;
   updateSummary(sales, ranking);
 }
 

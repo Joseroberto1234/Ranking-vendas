@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="app-container">
+  <main class="app-container">
     <header class="page-header">
       <div>
-        <span class="brand-icon">🏆</span>
+        <span class="brand-icon" aria-hidden="true">🏆</span>
         <div>
           <h1>Ranking de Vendas</h1>
           <p>Gerencie suas vendas e acompanhe o desempenho da equipe.</p>
         </div>
       </div>
-      <div class="profile-card">
+      <div class="profile-card" aria-label="Perfil da equipe de vendas">
         <span>Olá!</span>
         <strong>Equipe de Vendas</strong>
       </div>
@@ -51,16 +51,16 @@
         <form id="sale-form">
           <input id="saleId" name="saleId" type="hidden" value="" />
 
-          <label>Seu nome</label>
+          <label for="sellerName">Seu nome</label>
           <input id="sellerName" name="sellerName" type="text" placeholder="Ex: Pedro" required />
 
-          <label>Nome do cliente</label>
+          <label for="customerName">Nome do cliente</label>
           <input id="customerName" name="customerName" type="text" placeholder="Ex: Maria" required />
 
-          <label>Endereço do cliente</label>
+          <label for="customerAddress">Endereço do cliente</label>
           <input id="customerAddress" name="customerAddress" type="text" placeholder="Ex: Rua das Flores, 123" required />
 
-          <label>Quantidade vendida</label>
+          <label for="quantity">Quantidade vendida</label>
           <input id="quantity" name="quantity" type="number" min="1" value="1" required />
 
           <div class="form-actions">
@@ -69,7 +69,7 @@
           </div>
         </form>
 
-        <div id="message" class="message"></div>
+        <div id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
 
       <div class="panel panel-ranking">
@@ -79,6 +79,7 @@
         </div>
         <div class="ranking-table-wrapper">
           <table>
+            <caption class="sr-only">Tabela de ranking de vendedores</caption>
             <thead>
               <tr>
                 <th>Posição</th>
@@ -98,10 +99,11 @@
           <h2>Histórico de Vendas</h2>
           <p>Visualize e gerencie todas as vendas registradas.</p>
         </div>
-        <button id="clear-history-btn" class="btn-clear-history">Limpar Histórico</button>
+        <button id="clear-history-btn" class="btn-clear-history" aria-label="Limpar histórico de vendas">Limpar Histórico</button>
       </div>
       <div class="table-wrapper">
         <table>
+          <caption class="sr-only">Tabela de histórico de vendas</caption>
           <thead>
             <tr>
               <th>Vendedor</th>
@@ -116,7 +118,7 @@
         </table>
       </div>
     </section>
-  </div>
+  </main>
   <script src="app.js"></script>
 </body>
 </html>
