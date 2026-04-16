@@ -27,6 +27,24 @@ const Sale = sequelize.define('Sale', {
     allowNull: false,
     defaultValue: 'pendente',
   },
+  observation: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: '',
+  },
+  paymentMethod: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  needChange: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  paymentDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

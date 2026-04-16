@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log('Banco sincronizado com MySQL');
   app.listen(port, host, () => {
     console.log(`Servidor rodando em http://${host}:${port}`);

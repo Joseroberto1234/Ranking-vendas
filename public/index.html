@@ -7,111 +7,209 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="app-container">
-    <header class="page-header">
-      <div>
-        <span class="brand-icon" aria-hidden="true">🏆</span>
-        <div>
-          <h1>Ranking de Vendas</h1>
-          <p>Gerencie suas vendas e acompanhe o desempenho da equipe.</p>
-        </div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 21h8" />
+            <path d="M12 17v4" />
+            <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+            <path d="M7 5H4a2 2 0 0 0 2 5h1" />
+            <path d="M17 5h3a2 2 0 0 1-2 5h-1" />
+          </svg>
+        </span>
+        <h1>Ranking de Vendas</h1>
       </div>
-      <div class="profile-card" aria-label="Perfil da equipe de vendas">
-        <span>Olá!</span>
-        <strong>Equipe de Vendas</strong>
-      </div>
-    </header>
 
-    <section class="stats-grid">
-      <article class="stat-card">
-        <span class="stat-label">Total de Vendas</span>
-        <strong id="total-sales">0</strong>
+      <div class="team-badge" aria-label="Equipe atual">Equipe de Vendas</div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="stats-grid" aria-label="Resumo de vendas">
+      <article class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Total de vendas</span>
+          <span class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="4" width="14" height="16" rx="2" />
+              <path d="M9 2v4" />
+              <path d="M15 2v4" />
+              <path d="M8 10h8" />
+            </svg>
+          </span>
+        </div>
+        <strong id="total-sales" class="metric-value">0</strong>
       </article>
-      <article class="stat-card">
-        <span class="stat-label">Vendedores</span>
-        <strong id="sellers-count">0</strong>
+
+      <article class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Vendedores</span>
+          <span class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+              <circle cx="9.5" cy="7" r="3" />
+              <path d="M20 8v6" />
+              <path d="M17 11h6" />
+            </svg>
+          </span>
+        </div>
+        <strong id="sellers-count" class="metric-value">0</strong>
       </article>
-      <article class="stat-card">
-        <span class="stat-label">Registros</span>
-        <strong id="records-count">0</strong>
+
+      <article class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Registros</span>
+          <span class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 21h8" />
+              <path d="M12 17v4" />
+              <path d="M7 4h10v3a5 5 0 0 1-10 0V4Z" />
+              <path d="M7 5H4a2 2 0 0 0 2 5h1" />
+              <path d="M17 5h3a2 2 0 0 1-2 5h-1" />
+            </svg>
+          </span>
+        </div>
+        <strong id="records-count" class="metric-value">0</strong>
       </article>
-      <article class="stat-card">
-        <span class="stat-label">Líder</span>
-        <strong id="leader-name">-</strong>
+
+      <article class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Lider</span>
+          <span class="metric-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m4 7 4 4 4-6 4 6 4-4" />
+              <path d="M6 19h12" />
+              <path d="M7 11h10l-1 6H8l-1-6Z" />
+            </svg>
+          </span>
+        </div>
+        <strong id="leader-name" class="metric-value metric-name">-</strong>
       </article>
     </section>
 
-    <section class="dashboard-grid">
-      <div class="panel panel-form">
+    <section class="content-grid">
+      <section class="panel form-panel" aria-labelledby="new-sale-title">
         <div class="panel-header">
-          <h2>Nova Venda</h2>
-          <p>Registre uma nova venda preenchendo os campos abaixo.</p>
+          <h2 id="new-sale-title">Nova Venda</h2>
         </div>
 
-        <form id="sale-form">
+        <form id="sale-form" class="sale-form">
           <input id="saleId" name="saleId" type="hidden" value="" />
 
-          <label for="sellerName">Seu nome</label>
-          <input id="sellerName" name="sellerName" type="text" placeholder="Ex: Pedro" required />
+          <div class="form-row">
+            <div class="input-group">
+              <label for="sellerName">Vendedor</label>
+              <input id="sellerName" name="sellerName" type="text" placeholder="Seu nome" required />
+            </div>
 
-          <label for="customerName">Nome do cliente</label>
-          <input id="customerName" name="customerName" type="text" placeholder="Ex: Maria" required />
+            <div class="input-group">
+              <label for="customerName">Cliente</label>
+              <input id="customerName" name="customerName" type="text" placeholder="Nome do cliente" required />
+            </div>
+          </div>
 
-          <label for="customerAddress">Endereço do cliente</label>
-          <input id="customerAddress" name="customerAddress" type="text" placeholder="Ex: Rua das Flores, 123" required />
+          <div class="form-row">
+            <div class="input-group">
+              <label for="customerAddress">Endereco</label>
+              <input id="customerAddress" name="customerAddress" type="text" placeholder="Endereco do cliente" required />
+            </div>
 
-          <label for="quantity">Quantidade vendida</label>
-          <input id="quantity" name="quantity" type="number" min="1" value="1" required />
+            <div class="input-group">
+              <label for="quantity">Quantidade</label>
+              <input id="quantity" name="quantity" type="number" min="1" value="1" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="observation">Observacoes</label>
+            <textarea id="observation" name="observation" placeholder="Observacoes do pedido"></textarea>
+          </div>
+
+          <div class="form-row payment-row">
+            <div class="input-group">
+              <label for="paymentMethod">Pagamento</label>
+              <select id="paymentMethod" name="paymentMethod" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Pix">Pix</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+            </div>
+
+            <div class="input-group date-group">
+              <label>Data Pagamento</label>
+              <div class="date-selects">
+                <select id="paymentDateDay" name="paymentDateDay" required>
+                  <option value="" disabled selected>Dia</option>
+                </select>
+                <select id="paymentDateMonth" name="paymentDateMonth" required>
+                  <option value="" disabled selected>Mes</option>
+                </select>
+                <select id="paymentDateYear" name="paymentDateYear" required>
+                  <option value="" disabled selected>Ano</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group hidden" id="change-container">
+            <label for="needChange">Precisa de troco?</label>
+            <select id="needChange" name="needChange">
+              <option value="false">Nao</option>
+              <option value="true">Sim</option>
+            </select>
+          </div>
 
           <div class="form-actions">
-            <button id="submit-button" type="submit">Enviar Venda</button>
-            <button id="cancel-button" type="button" class="cancel-button hidden">Cancelar</button>
+            <button id="submit-button" class="primary-button" type="submit">Registrar Venda</button>
+            <button id="cancel-button" class="secondary-button hidden" type="button">Cancelar Edicao</button>
           </div>
         </form>
 
         <div id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></div>
-      </div>
+      </section>
 
-      <div class="panel panel-ranking">
+      <section class="panel ranking-panel" aria-labelledby="ranking-title">
         <div class="panel-header">
-          <h2>Ranking</h2>
-          <p>Classificação dos vendedores por total de vendas.</p>
+          <h2 id="ranking-title">Ranking de Vendedores</h2>
         </div>
-        <div class="ranking-table-wrapper">
-          <table>
-            <caption class="sr-only">Tabela de ranking de vendedores</caption>
-            <thead>
-              <tr>
-                <th>Posição</th>
-                <th>Vendedor</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="ranking-body"></tbody>
-          </table>
-        </div>
-      </div>
+        <div id="ranking-body" class="ranking-list"></div>
+      </section>
     </section>
 
-    <section class="panel panel-history">
-      <div class="panel-header history-header">
-        <div>
-          <h2>Histórico de Vendas</h2>
-          <p>Visualize e gerencie todas as vendas registradas.</p>
-        </div>
-        <button id="clear-history-btn" class="btn-clear-history" aria-label="Limpar histórico de vendas">Limpar Histórico</button>
+    <section class="panel history-panel" aria-labelledby="orders-title">
+      <div class="history-header">
+        <h2 id="orders-title">Pedidos</h2>
+
+        <button id="clear-history-btn" class="btn-clear-history" type="button" aria-label="Limpar pedidos">
+          <span aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18" />
+              <path d="M8 6V4h8v2" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+            </svg>
+          </span>
+          <span>Limpar</span>
+        </button>
       </div>
+
       <div class="table-wrapper">
-        <table>
-          <caption class="sr-only">Tabela de histórico de vendas</caption>
+        <table class="orders-table">
+          <caption class="sr-only">Tabela de pedidos</caption>
           <thead>
             <tr>
               <th>Vendedor</th>
               <th>Cliente</th>
-              <th>Endereço</th>
+              <th>Endereco</th>
               <th>Qtd</th>
+              <th>Pagamento</th>
+              <th>Data Pagto</th>
+              <th>Observacoes</th>
               <th>Status</th>
-              <th>Ações</th>
+              <th>Acoes</th>
             </tr>
           </thead>
           <tbody id="sales-body"></tbody>
@@ -119,6 +217,7 @@
       </div>
     </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
